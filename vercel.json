@@ -4,7 +4,7 @@
   "outputDirectory": "client/build",
   "builds": [
     {
-      "src": "client/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "client/build"
@@ -24,8 +24,12 @@
       "destination": "/api/index.js"
     },
     {
-      "source": "/(.*)",
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff|woff2|ttf|eot))",
       "destination": "/client/build/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/client/build/index.html"
     }
   ],
   "env": {
