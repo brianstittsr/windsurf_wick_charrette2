@@ -41,8 +41,10 @@ export const API_ENDPOINTS = {
   HEALTH: `${API_BASE_URL}/api/health`,
 };
 
-export default {
+const config = {
   API_BASE_URL,
   API_ENDPOINTS,
   POLLING_INTERVAL,
 };
+
+export default config;

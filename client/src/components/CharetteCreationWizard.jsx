@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { Badge } from './ui/badge';
 import { CheckCircle, Circle, ArrowRight, ArrowLeft, X, Sparkles, Loader2 } from 'lucide-react';
 
 export default function CharetteCreationWizard({ onClose, onCreate }) {

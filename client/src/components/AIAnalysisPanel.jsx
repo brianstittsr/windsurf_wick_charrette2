@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -22,9 +22,7 @@ export default function AIAnalysisPanel({ charette, messages, breakoutRooms, onA
     }
   };
 
-  const roomMessages = selectedRoom === 'all' 
-    ? messages 
-    : messages?.filter(m => m.roomId === selectedRoom) || [];
+  // Room messages filtering handled in parent component
 
   return (
     <div className="space-y-6">

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Layers, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { Layers, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export default function PhaseSynthesis({ charette, ideas, onComplete }) {
   const [solutions, setSolutions] = useState([

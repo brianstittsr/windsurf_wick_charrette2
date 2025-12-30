@@ -547,10 +547,12 @@ export function addDiscourseAnalysisAppendix() {
   this.currentY += 10;
 }
 
-export default {
+const pdfAppendixMethods = {
   addCognitiveRestructuringAppendix,
   addSocraticQuestioningAppendix,
   addNLPReframingAppendix,
   addSixStepReframingAppendix,
   addDiscourseAnalysisAppendix
 };
+
+export default pdfAppendixMethods;

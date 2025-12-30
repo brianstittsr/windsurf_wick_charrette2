@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { MessageSquare, Users, FileText, ArrowLeft, Send, Plus, Menu, LogOut, Workflow, Settings, Database, Edit2, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { MessageSquare, Users, FileText, ArrowLeft, Send, Plus, LogOut, Workflow, Settings, Database, Edit2, Trash2 } from 'lucide-react';
 import { signInWithGoogle, logout, onAuthStateChange } from './firebase';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/ui/card';
@@ -37,7 +37,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [userName, setUserName] = useState('');
-  const [userRole, setUserRole] = useState('participant');
+  const [userRole] = useState('participant');
   const [currentRoom, setCurrentRoom] = useState('main');
   const [activeTab, setActiveTab] = useState('overview');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
