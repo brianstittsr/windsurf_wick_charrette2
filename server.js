@@ -47,18 +47,22 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' 
-      ? ["https://charette-system.vercel.app", "https://*.vercel.app"] 
-      : ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"],
+    origin: process.env.APP_URL 
+      ? [process.env.APP_URL, "https://*.digitalocean.app"] 
+      : (process.env.NODE_ENV === 'production'
+        ? ["https://charette-system.vercel.app", "https://*.vercel.app"]
+        : ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"]),
     methods: ["GET", "POST"]
   }
 });
 
 // Configure CORS for both development and production
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production'
-    ? ['https://charette-system.vercel.app', /\.vercel\.app$/]
-    : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+  origin: process.env.APP_URL 
+    ? [process.env.APP_URL, /\.digitalocean\.app$/]
+    : (process.env.NODE_ENV === 'production'
+      ? ['https://charette-system.vercel.app', /\.vercel\.app$/]
+      : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002']),
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
@@ -490,6 +494,11 @@ function identifyThemes(messageTexts) {
   return themes;
 }
 
+// Add a health check endpoint for Docker/Coolify
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Catch-all route to serve the React app in production
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
@@ -499,21 +508,6 @@ if (process.env.NODE_ENV === 'production') {
     }
   });
 }
-// Add a health check endpoint for Docker/Coolify
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
-});
-
-// Update CORS settings to be more flexible with environment variables
-const corsOptions = {
-  origin: process.env.APP_URL 
-    ? [process.env.APP_URL, /\.digitalocean\.app$/]
-    : (process.env.NODE_ENV === 'production'
-      ? ['https://charette-system.vercel.app', /\.vercel\.app$/]
-      : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002']),
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-};
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
