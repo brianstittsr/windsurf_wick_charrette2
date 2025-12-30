@@ -168,12 +168,18 @@ app.get('/api/charettes', (req, res) => {
 });
 
 app.post('/api/charettes', (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, scope, stakeholders, objectives, constraints, timeframe, desiredOutcomes } = req.body;
   const charetteId = uuidv4();
   charettes[charetteId] = {
     id: charetteId,
     title,
     description,
+    scope,
+    stakeholders,
+    objectives,
+    constraints,
+    timeframe,
+    desiredOutcomes,
     currentPhase: 0,
     createdAt: new Date().toISOString(),
     phases: PHASES,
@@ -182,6 +188,48 @@ app.post('/api/charettes', (req, res) => {
     breakoutRooms: []
   };
   res.json(charettes[charetteId]);
+});
+
+app.put('/api/charettes/:id', (req, res) => {
+  const charette = charettes[req.params.id];
+  if (!charette) {
+    return res.status(404).json({ error: 'Charette not found' });
+  }
+
+  const { title, description, scope, stakeholders, objectives, constraints, timeframe, desiredOutcomes } = req.body;
+  
+  // Update charette fields
+  charettes[req.params.id] = {
+    ...charette,
+    title: title || charette.title,
+    description: description || charette.description,
+    scope: scope !== undefined ? scope : charette.scope,
+    stakeholders: stakeholders !== undefined ? stakeholders : charette.stakeholders,
+    objectives: objectives !== undefined ? objectives : charette.objectives,
+    constraints: constraints !== undefined ? constraints : charette.constraints,
+    timeframe: timeframe !== undefined ? timeframe : charette.timeframe,
+    desiredOutcomes: desiredOutcomes !== undefined ? desiredOutcomes : charette.desiredOutcomes,
+    updatedAt: new Date().toISOString()
+  };
+
+  res.json(charettes[req.params.id]);
+});
+
+app.delete('/api/charettes/:id', (req, res) => {
+  const charette = charettes[req.params.id];
+  if (!charette) {
+    return res.status(404).json({ error: 'Charette not found' });
+  }
+
+  // Delete associated messages
+  if (messages[req.params.id]) {
+    delete messages[req.params.id];
+  }
+
+  // Delete charette
+  delete charettes[req.params.id];
+
+  res.json({ success: true, message: 'Charette deleted successfully' });
 });
 
 app.post('/api/charettes/:id/participants', (req, res) => {
