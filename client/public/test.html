@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deployment Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .container {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vercel Deployment Test</h1>
+  
+  <div class="container">
+    <h2 class="success">If you can see this page, static file serving is working!</h2>
+    <p>This is a test page to verify that the Vercel deployment is correctly serving static files.</p>
+  </div>
+
+  <div class="container">
+    <h2>Deployment Information</h2>
+    <ul>
+      <li><strong>Page:</strong> /test.html</li>
+      <li><strong>Environment:</strong> Production</li>
+      <li><strong>Timestamp:</strong> <span id="timestamp"></span></li>
+    </ul>
+  </div>
+
+  <script>
+    // Display the current time
+    document.getElementById('timestamp').textContent = new Date().toLocaleString();
+    
+    // Test API connection
+    fetch('/api/status')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.createElement('div');
+        container.className = 'container';
+        container.innerHTML = `
+          <h2>API Connection Test</h2>
+          <p class="success">API connection successful!</p>
+          <pre>${JSON.stringify(data, null, 2)}</pre>
+        `;
+        document.body.appendChild(container);
+      })
+      .catch(error => {
+        const container = document.createElement('div');
+        container.className = 'container';
+        container.innerHTML = `
+          <h2>API Connection Test</h2>
+          <p style="color: red;">API connection failed!</p>
+          <pre>${error.message}</pre>
+        `;
+        document.body.appendChild(container);
+      });
+  </script>
+</body>
+</html>
