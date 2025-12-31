@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  ArrowLeft, CheckCircle, Users, MessageSquare, FileText, Zap, Brain 
+  ArrowLeft, CheckCircle, Users, MessageSquare, FileText, Zap, Brain, Database, Lightbulb, Target, Workflow, Heart, BookOpen, Globe, Award, Star, Clock, ChevronRight, Play, ArrowRight, Video, Download 
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
