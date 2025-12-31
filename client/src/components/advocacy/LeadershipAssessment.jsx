@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Award, TrendingUp, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
 import advocacyService from '../../services/advocacyService';
 
 const LeadershipAssessment = ({ advocacyUser, onComplete }) => {
