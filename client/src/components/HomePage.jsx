@@ -9,7 +9,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import DemoRequestModal from './DemoRequestModal';
 
-const HomePage = ({ onGetStarted, onRequestDemo }) => {
+const HomePage = ({ onGetStarted, onRequestDemo, onAbout, onProducts, onAdvocacy }) => {
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -157,6 +157,35 @@ const HomePage = ({ onGetStarted, onRequestDemo }) => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Navigation Bar */}
+      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <img src="/wick-logo.svg" alt="Wick Enterprises" className="h-8 w-8" />
+              <span className="font-bold text-xl">Wick Enterprises</span>
+            </div>
+            <nav className="flex items-center space-x-6">
+              <Button variant="ghost" onClick={onProducts}>
+                Products
+              </Button>
+              <Button variant="ghost" onClick={onAdvocacy}>
+                Advocacy
+              </Button>
+              <Button variant="ghost" onClick={onAbout}>
+                About Us
+              </Button>
+              <Button variant="outline" onClick={() => setShowDemoModal(true)}>
+                Request Demo
+              </Button>
+              <Button onClick={onGetStarted}>
+                Get Started
+              </Button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border-b">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -397,6 +426,86 @@ const HomePage = ({ onGetStarted, onRequestDemo }) => {
           </p>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-card border-t py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <img src="/wick-logo.svg" alt="Wick Enterprises" className="h-8 w-8" />
+                <span className="font-bold text-lg">Wick Enterprises</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Empowering communities through collaborative decision-making and advocacy tools.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <button onClick={onAbout} className="text-muted-foreground hover:text-primary transition-colors">
+                    About Us
+                  </button>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@wickenterprises.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Products</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <button onClick={onProducts} className="text-muted-foreground hover:text-primary transition-colors">
+                    View All Products
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onProducts} className="text-muted-foreground hover:text-primary transition-colors">
+                    Charette Platform
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onProducts} className="text-muted-foreground hover:text-primary transition-colors">
+                    Advocacy Module
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setShowDemoModal(true)} className="text-muted-foreground hover:text-primary transition-colors">
+                    Request Demo
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                    Terms of Service
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} Wick Enterprises. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
 
       {/* Demo Request Modal */}
       {showDemoModal && (

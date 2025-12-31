@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Users, FileText, ArrowLeft, Send, Plus, LogOut, Workflow, Settings, Database, Edit2, Trash2 } from 'lucide-react';
+import { MessageSquare, Users, FileText, ArrowLeft, Send, Plus, LogOut, Workflow, Settings, Database, Edit2, Trash2, HelpCircle } from 'lucide-react';
 import { signInWithGoogle, logout, onAuthStateChange } from './firebase';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/ui/card';
@@ -16,6 +16,10 @@ import {
   AlertDialogTitle,
 } from './components/ui/alert-dialog';
 import HomePage from './components/HomePage';
+import AboutPage from './components/AboutPage';
+import ProductsPage from './components/ProductsPage';
+import GuidedTour from './components/GuidedTour';
+import AdvocacyModule from './components/advocacy/AdvocacyModule';
 import CharetteWorkflow from './components/CharetteWorkflow';
 import SettingsTab from './components/SettingsTab';
 import AIAnalysisPanel from './components/AIAnalysisPanel';
@@ -26,6 +30,7 @@ import apiService from './services/api';
 import { usePolling } from './hooks/usePolling';
 import { POLLING_INTERVAL } from './config';
 import { cn } from './lib/utils';
+import { durhamCharetteTourSteps, quickTourSteps } from './config/durhamCharetteTour';
 
 const API_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : '');
 
@@ -49,6 +54,11 @@ function App() {
   const [documents, setDocuments] = useState([]);
   const [analysisRunning, setAnalysisRunning] = useState(false);
   const [showHomePage, setShowHomePage] = useState(true);
+  const [showAboutPage, setShowAboutPage] = useState(false);
+  const [showProductsPage, setShowProductsPage] = useState(false);
+  const [showAdvocacyModule, setShowAdvocacyModule] = useState(false);
+  const [showGuidedTour, setShowGuidedTour] = useState(false);
+  const [tourType, setTourType] = useState('full');
   const [newCharette, setNewCharette] = useState({
     title: '',
     description: '',
@@ -249,12 +259,59 @@ function App() {
     }
   };
 
+  // Advocacy Module
+  if (showAdvocacyModule) {
+    return (
+      <div className="min-h-screen bg-background">
+        <header className="border-b bg-card sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Button variant="ghost" onClick={() => setShowAdvocacyModule(false)}>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back
+              </Button>
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-muted-foreground">{user?.email}</span>
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <AdvocacyModule user={user} />
+      </div>
+    );
+  }
+
+  // Products Page
+  if (showProductsPage) {
+    return (
+      <ProductsPage 
+        onBack={() => setShowProductsPage(false)} 
+        onRequestDemo={handleDemoRequest}
+      />
+    );
+  }
+
+  // About Page
+  if (showAboutPage) {
+    return <AboutPage onBack={() => setShowAboutPage(false)} />;
+  }
+
   // Home Page (before login)
   if (!user && showHomePage) {
     return (
       <HomePage 
         onGetStarted={handleDemoMode}
         onRequestDemo={handleDemoRequest}
+        onAbout={() => setShowAboutPage(true)}
+        onProducts={() => setShowProductsPage(true)}
+        onAdvocacy={() => {
+          handleDemoMode();
+          setShowAdvocacyModule(true);
+        }}
       />
     );
   }
@@ -314,9 +371,13 @@ function App() {
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <MessageSquare className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold">Charette System</h1>
+              <h1 className="text-2xl font-bold">Wick Enterprises</h1>
             </div>
             <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm" onClick={() => setShowAdvocacyModule(true)}>
+                <Heart className="h-4 w-4 mr-2" />
+                Advocacy Module
+              </Button>
               <span className="text-sm text-muted-foreground">{user.email}</span>
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
@@ -482,7 +543,7 @@ function App() {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back
               </Button>
-              <div>
+              <div data-tour="session-header">
                 <h1 className="text-xl font-bold">{currentCharette.title}</h1>
                 <p className="text-sm text-muted-foreground">
                   Phase {currentCharette.currentPhase + 1} of {currentCharette.phases?.length || 6}
@@ -490,6 +551,17 @@ function App() {
               </div>
             </div>
             <div className="flex items-center space-x-3">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => {
+                  setTourType('full');
+                  setShowGuidedTour(true);
+                }}
+              >
+                <HelpCircle className="h-4 w-4 mr-2" />
+                Take Tour
+              </Button>
               <Badge variant="outline">{userName}</Badge>
               <Badge>{userRole}</Badge>
             </div>
@@ -500,7 +572,7 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 container mx-auto px-4 py-6">
         <Tabs className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 lg:w-auto">
+          <TabsList className="grid w-full grid-cols-8 lg:w-auto" data-tour="workflow-tabs">
             <TabsTrigger 
               active={activeTab === 'workflow'}
               onClick={() => setActiveTab('workflow')}
@@ -625,7 +697,7 @@ function App() {
               </Card>
 
               <div className="space-y-6">
-                <Card>
+                <Card data-tour="participants">
                   <CardHeader>
                     <CardTitle>Participants</CardTitle>
                   </CardHeader>
@@ -656,7 +728,7 @@ function App() {
           </TabsContent>
 
           {/* Discussion Tab */}
-          <TabsContent value="discussion" className={activeTab === 'discussion' ? '' : 'hidden'}>
+          <TabsContent value="discussion" className={activeTab === 'discussion' ? '' : 'hidden'} data-tour="discussion-area">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
               {/* Room List */}
               <Card className="lg:col-span-1">
@@ -757,7 +829,7 @@ function App() {
           </TabsContent>
 
           {/* Rooms Tab */}
-          <TabsContent value="rooms" className={activeTab === 'rooms' ? '' : 'hidden'}>
+          <TabsContent value="rooms" className={activeTab === 'rooms' ? '' : 'hidden'} data-tour="breakout-rooms">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentCharette.breakoutRooms?.map((room) => (
                 <Card key={room.id} className="hover:shadow-lg transition-shadow">
@@ -792,7 +864,7 @@ function App() {
           </TabsContent>
 
           {/* AI Analysis Tab */}
-          <TabsContent value="ai-analysis" className={activeTab === 'ai-analysis' ? '' : 'hidden'}>
+          <TabsContent value="ai-analysis" className={activeTab === 'ai-analysis' ? '' : 'hidden'} data-tour="ai-analysis">
             <AIAnalysisPanel
               charette={currentCharette}
               messages={messages}
@@ -827,7 +899,7 @@ function App() {
           </TabsContent>
 
           {/* Progress Tab */}
-          <TabsContent value="progress" className={activeTab === 'progress' ? '' : 'hidden'}>
+          <TabsContent value="progress" className={activeTab === 'progress' ? '' : 'hidden'} data-tour="progress">
             <Card>
               <CardHeader>
                 <CardTitle>Charette Progress</CardTitle>
@@ -863,7 +935,7 @@ function App() {
           </TabsContent>
 
           {/* Documents Tab */}
-          <TabsContent value="documents" className={activeTab === 'documents' ? '' : 'hidden'}>
+          <TabsContent value="documents" className={activeTab === 'documents' ? '' : 'hidden'} data-tour="documents">
             <DocumentLibrary
               charetteId={currentCharette.id}
               documents={documents}
@@ -935,7 +1007,7 @@ function App() {
           </TabsContent>
 
           {/* Settings Tab */}
-          <TabsContent value="settings" className={activeTab === 'settings' ? '' : 'hidden'}>
+          <TabsContent value="settings" className={activeTab === 'settings' ? '' : 'hidden'} data-tour="settings">
             <SettingsTab
               onSave={(settings) => {
                 console.log('Settings saved:', settings);
@@ -944,6 +1016,13 @@ function App() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Guided Tour */}
+      <GuidedTour
+        isActive={showGuidedTour}
+        onClose={() => setShowGuidedTour(false)}
+        tourSteps={tourType === 'full' ? durhamCharetteTourSteps : quickTourSteps}
+      />
     </div>
   );
 }
