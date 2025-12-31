@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Heart, AlertCircle, CheckCircle, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
 
 const AccountabilityCoach = ({ advocacyUser }) => {
   const [selectedScenario, setSelectedScenario] = useState(null);

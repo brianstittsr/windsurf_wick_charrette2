@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Award, Zap, Target } from 'lucide-react';
+import { Award, Zap, Target } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
 import gamificationService from '../../services/gamificationService';
 
 const GamificationProgress = ({ advocacyUser, compact = false }) => {
@@ -11,6 +10,7 @@ const GamificationProgress = ({ advocacyUser, compact = false }) => {
 
   useEffect(() => {
     loadStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advocacyUser]);
 
   const loadStats = () => {

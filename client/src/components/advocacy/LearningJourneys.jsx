@@ -16,6 +16,7 @@ const LearningJourneys = ({ advocacyUser }) => {
   useEffect(() => {
     loadLearningPaths();
     loadUserProgress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advocacyUser]);
 
   const loadLearningPaths = async () => {

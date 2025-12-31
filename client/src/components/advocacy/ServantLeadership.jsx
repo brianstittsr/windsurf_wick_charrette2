@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Target, TrendingUp, Calendar } from 'lucide-react';
+import { Target, TrendingUp, Calendar } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
@@ -16,6 +16,7 @@ const ServantLeadership = ({ advocacyUser }) => {
 
   useEffect(() => {
     loadLeadershipData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advocacyUser]);
 
   const loadLeadershipData = async () => {

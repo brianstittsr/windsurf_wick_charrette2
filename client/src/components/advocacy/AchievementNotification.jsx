@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, Sparkles, Trophy, Award } from 'lucide-react';
+import { X, Sparkles, Trophy } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
 const AchievementNotification = ({ achievement, onClose }) => {
@@ -16,6 +16,7 @@ const AchievementNotification = ({ achievement, onClose }) => {
     }, 5000);
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClose = () => {

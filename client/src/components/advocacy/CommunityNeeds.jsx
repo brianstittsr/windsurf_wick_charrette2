@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, Plus, TrendingUp, FileText, ThumbsUp } from 'lucide-react';
+import { Map, Plus, AlertCircle, FileText, ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -185,6 +185,7 @@ const AdvocacyBriefsTab = ({ advocacyUser }) => {
 
   useEffect(() => {
     loadBriefs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advocacyUser]);
 
   const loadBriefs = async () => {

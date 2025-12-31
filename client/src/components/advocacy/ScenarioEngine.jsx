@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Map, Filter, CheckCircle, AlertCircle, Info, ArrowRight } from 'lucide-react';
+import { Play, CheckCircle, XCircle, AlertCircle, TrendingUp, Award } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -18,7 +18,8 @@ const ScenarioEngine = ({ advocacyUser }) => {
 
   useEffect(() => {
     loadScenarios();
-  }, [advocacyUser, filters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advocacyUser]);
 
   const loadScenarios = async () => {
     try {

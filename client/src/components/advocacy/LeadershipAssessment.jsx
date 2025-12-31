@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Award, TrendingUp, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';

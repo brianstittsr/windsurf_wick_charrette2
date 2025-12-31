@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trophy, Medal, Award, TrendingUp, Users, Calendar } from 'lucide-react';
+import { Trophy, Award, TrendingUp, Users, Calendar } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -13,6 +13,7 @@ const Leaderboard = ({ advocacyUser }) => {
 
   useEffect(() => {
     loadLeaderboard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeframe]);
 
   const loadLeaderboard = async () => {

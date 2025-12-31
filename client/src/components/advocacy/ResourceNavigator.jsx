@@ -30,7 +30,7 @@ const ResourceNavigator = ({ advocacyUser }) => {
 
   useEffect(() => {
     filterResources();
-  }, [resources, searchQuery, selectedType]);
+  }, [selectedType, searchQuery]);
 
   const loadResources = async () => {
     try {

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { X, Send, Building2, Mail, Phone, User, Briefcase, MessageSquare } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { Badge } from './ui/badge';
 
 const DemoRequestModal = ({ product, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({

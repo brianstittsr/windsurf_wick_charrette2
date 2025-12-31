@@ -24,6 +24,7 @@ const AdvocacyModule = ({ user }) => {
 
   useEffect(() => {
     loadAdvocacyUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const loadAdvocacyUser = async () => {

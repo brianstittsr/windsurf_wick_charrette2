@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 import advocacyService from '../../services/advocacyService';
 
 const FeedbackHub = ({ advocacyUser }) => {
-  const [feedbackType, setFeedbackType] = useState('module');
+  const [feedbackType] = useState('suggestion');
   const [wasHelpful, setWasHelpful] = useState(null);
   const [stillStuck, setStillStuck] = useState('');
   const [suggestions, setSuggestions] = useState('');

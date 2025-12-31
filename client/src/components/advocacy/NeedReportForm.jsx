@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ArrowLeft, Send } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
 import AITextEnhancer from './AITextEnhancer';
 
 const NeedReportForm = ({ onSubmit, onCancel }) => {

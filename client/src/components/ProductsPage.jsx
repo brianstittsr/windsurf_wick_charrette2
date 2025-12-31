@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  MessageSquare, Users, Brain, FileText, Heart, TrendingUp, 
-  CheckCircle, ArrowRight, Zap, Shield, Globe, Award,
-  ChevronRight, Play, Star, BarChart3, Clock, Target,
-  Lightbulb, Network, Database, Settings, ArrowLeft,
-  Download, Video, BookOpen, Workflow
+  ArrowLeft, CheckCircle, Users, MessageSquare, FileText, Zap, Brain 
 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import DemoRequestModal from './DemoRequestModal';

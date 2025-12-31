@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  MessageSquare, Users, Brain, FileText, Heart, TrendingUp, 
-  CheckCircle, ArrowRight, Zap, Shield, Globe, Award,
-  ChevronRight, Play, Star, BarChart3
+  MessageSquare, Users, TrendingUp, CheckCircle, ArrowRight, Zap, Shield, Target, Clock, Globe, Award 
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -451,12 +449,12 @@ const HomePage = ({ onGetStarted, onRequestDemo, onAbout, onProducts, onAdvocacy
                 <li>
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     Careers
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <a href="mailto:info@wickenterprises.com" className="text-muted-foreground hover:text-primary transition-colors">
                     Contact
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -491,12 +489,12 @@ const HomePage = ({ onGetStarted, onRequestDemo, onAbout, onProducts, onAdvocacy
                 <li>
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     Privacy Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     Terms of Service
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>

@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { TrendingUp, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
 
 const NeedsHeatmap = ({ needs }) => {
   const analytics = useMemo(() => {

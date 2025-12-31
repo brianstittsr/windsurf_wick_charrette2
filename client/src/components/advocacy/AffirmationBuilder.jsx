@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Save, Copy, CheckCircle, Plus } from 'lucide-react';
+import { Sparkles, Save, Copy, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -81,6 +81,7 @@ const AffirmationBuilder = ({ advocacyUser }) => {
 
   useEffect(() => {
     loadSavedAffirmations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advocacyUser]);
 
   const loadSavedAffirmations = async () => {
