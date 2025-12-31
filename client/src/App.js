@@ -18,6 +18,7 @@ import {
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import ProductsPage from './components/ProductsPage';
+import SettingsPage from './components/SettingsPage';
 import GuidedTour from './components/GuidedTour';
 import AdvocacyModule from './components/advocacy/AdvocacyModule';
 import CharetteWorkflow from './components/CharetteWorkflow';
@@ -57,6 +58,7 @@ function App() {
   const [showAboutPage, setShowAboutPage] = useState(false);
   const [showProductsPage, setShowProductsPage] = useState(false);
   const [showAdvocacyModule, setShowAdvocacyModule] = useState(false);
+  const [showSettingsPage, setShowSettingsPage] = useState(false);
   const [showGuidedTour, setShowGuidedTour] = useState(false);
   const [tourType, setTourType] = useState('full');
   const [newCharette, setNewCharette] = useState({
@@ -259,6 +261,19 @@ function App() {
     }
   };
 
+  // Settings Page
+  if (showSettingsPage) {
+    return (
+      <SettingsPage 
+        onBack={() => setShowSettingsPage(false)}
+        onSave={async (settings) => {
+          console.log('Settings saved:', settings);
+          // In production, save to backend API
+        }}
+      />
+    );
+  }
+
   // Advocacy Module
   if (showAdvocacyModule) {
     return (
@@ -377,6 +392,10 @@ function App() {
               <Button variant="ghost" size="sm" onClick={() => setShowAdvocacyModule(true)}>
                 <Heart className="h-4 w-4 mr-2" />
                 Advocacy Module
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => setShowSettingsPage(true)}>
+                <Settings className="h-4 w-4 mr-2" />
+                Settings
               </Button>
               <span className="text-sm text-muted-foreground">{user.email}</span>
               <Button variant="outline" size="sm" onClick={handleLogout}>
