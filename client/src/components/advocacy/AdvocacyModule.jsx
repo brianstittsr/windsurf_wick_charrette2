@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, BookOpen, Users, Map, Award, Library, MessageCircle, TrendingUp } from 'lucide-react';
+import { Heart, BookOpen, Users, Map, Award, Library, MessageCircle, TrendingUp, Trophy } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import OnboardingQuiz from './OnboardingQuiz';
@@ -10,6 +10,10 @@ import CommunityNeeds from './CommunityNeeds';
 import ServantLeadership from './ServantLeadership';
 import ResourceNavigator from './ResourceNavigator';
 import FeedbackHub from './FeedbackHub';
+import Leaderboard from './Leaderboard';
+import BadgeCollection from './BadgeCollection';
+import GamificationProgress from './GamificationProgress';
+import { AchievementQueue } from './AchievementNotification';
 import advocacyService from '../../services/advocacyService';
 
 const AdvocacyModule = ({ user }) => {
@@ -122,8 +126,9 @@ const AdvocacyModule = ({ user }) => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-6">
+    <AchievementQueue>
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center space-x-3 mb-2">
@@ -135,47 +140,14 @@ const AdvocacyModule = ({ user }) => {
           </p>
         </div>
 
-        {/* User Progress Summary */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Your Journey</CardTitle>
-            <CardDescription>
-              Level {advocacyUser?.currentLevel || 1} • {advocacyUser?.role || 'Community Member'}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  {advocacyUser?.completedPaths?.length || 0}
-                </div>
-                <div className="text-sm text-muted-foreground">Paths Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  {advocacyUser?.affirmations?.length || 0}
-                </div>
-                <div className="text-sm text-muted-foreground">Affirmations Created</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  {advocacyUser?.practiceCommitments?.filter(c => c.completed).length || 0}
-                </div>
-                <div className="text-sm text-muted-foreground">Commitments Kept</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  {advocacyUser?.primaryConcerns?.length || 0}
-                </div>
-                <div className="text-sm text-muted-foreground">Focus Areas</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Gamification Progress */}
+        <div className="mb-6">
+          <GamificationProgress advocacyUser={advocacyUser} compact={true} />
+        </div>
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-6">
+          <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10 mb-6">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               <span className="hidden sm:inline">Overview</span>
@@ -207,6 +179,14 @@ const AdvocacyModule = ({ user }) => {
             <TabsTrigger value="feedback" className="flex items-center gap-2">
               <Heart className="h-4 w-4" />
               <span className="hidden sm:inline">Feedback</span>
+            </TabsTrigger>
+            <TabsTrigger value="leaderboard" className="flex items-center gap-2">
+              <Trophy className="h-4 w-4" />
+              <span className="hidden sm:inline">Leaderboard</span>
+            </TabsTrigger>
+            <TabsTrigger value="badges" className="flex items-center gap-2">
+              <Award className="h-4 w-4" />
+              <span className="hidden sm:inline">Badges</span>
             </TabsTrigger>
           </TabsList>
 
@@ -241,9 +221,18 @@ const AdvocacyModule = ({ user }) => {
           <TabsContent value="feedback">
             <FeedbackHub advocacyUser={advocacyUser} />
           </TabsContent>
+
+          <TabsContent value="leaderboard">
+            <Leaderboard advocacyUser={advocacyUser} />
+          </TabsContent>
+
+          <TabsContent value="badges">
+            <BadgeCollection advocacyUser={advocacyUser} />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
+    </AchievementQueue>
   );
 };
 
