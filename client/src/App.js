@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from './components/ui/alert-dialog';
+import HomePage from './components/HomePage';
 import CharetteWorkflow from './components/CharetteWorkflow';
 import SettingsTab from './components/SettingsTab';
 import AIAnalysisPanel from './components/AIAnalysisPanel';
@@ -47,6 +48,7 @@ function App() {
   const [deletingCharetteId, setDeletingCharetteId] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [analysisRunning, setAnalysisRunning] = useState(false);
+  const [showHomePage, setShowHomePage] = useState(true);
   const [newCharette, setNewCharette] = useState({
     title: '',
     description: '',
@@ -67,6 +69,14 @@ function App() {
     };
     setUser(demoUser);
     setUserName('Demo User');
+    setShowHomePage(false);
+  };
+
+  // Handle demo request submission
+  const handleDemoRequest = async (formData) => {
+    // In production, send to backend/CRM
+    console.log('Demo request:', formData);
+    // Could integrate with email service, CRM, etc.
   };
 
   // Authentication
@@ -238,6 +248,16 @@ function App() {
       console.error('Error advancing phase:', error);
     }
   };
+
+  // Home Page (before login)
+  if (!user && showHomePage) {
+    return (
+      <HomePage 
+        onGetStarted={handleDemoMode}
+        onRequestDemo={handleDemoRequest}
+      />
+    );
+  }
 
   // Login Screen
   if (!user) {

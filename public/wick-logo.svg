@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1075"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   sodipodi:docname="wick_icon_large.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1077"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5"
+     inkscape:cx="391"
+     inkscape:cy="519"
+     inkscape:window-width="1728"
+     inkscape:window-height="1051"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1072">
+    <linearGradient id="flameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4B4B">
+        <animate attributeName="stop-color"
+          values="#FF4B4B; #9C27B0; #FF9800; #2196F3; #FF4B4B"
+          dur="8s"
+          repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#9C27B0">
+        <animate attributeName="stop-color"
+          values="#9C27B0; #FF9800; #2196F3; #FF4B4B; #9C27B0"
+          dur="8s"
+          repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1111"
+       transform="matrix(2.991938,0,0,2.9885176,-261.06313,-36.579405)"
+       style="stroke-width:0.334421">
+      <g
+         id="g536"
+         style="stroke-width:0.334421">
+        <path
+           style="fill:url(#flameGradient);stroke-width:0.334421"
+           d="m 133.90462,90.499186 c 0.27301,-0.89176 0.49148,-3.08478 0.48549,-4.87336 -0.0243,-7.26353 -4.25271,-13.66452 -16.64966,-25.20454 -9.8678,-9.185657 -11.92959,-11.454252 -14.00508,-15.409848 -1.45639,-2.775671 -1.58199,-3.406432 -1.57109,-7.890208 0.01,-3.997725 0.22901,-5.368795 1.22051,-7.63069 1.63806,-3.73691 4.12078,-7.453844 6.81642,-10.20497 l 2.24117,-2.287309 0.5846,3.696323 c 1.10181,6.966389 4.10217,12.086241 14.67594,25.043171 10.16368,12.454431 13.87928,19.256661 14.71744,26.943621 0.676,6.19966 -1.63367,12.32915 -6.36306,16.88653 l -2.64906,2.55271 z"
+           id="path1107" />
+        <path
+           style="fill:url(#flameGradient);stroke-width:0.334421"
+           d="m 125.44391,104.36469 c 0.54628,-4.894126 -2.13326,-9.166494 -11.02417,-17.577384 -7.37111,-6.97313 -8.96019,-9.36825 -9.02239,-13.59891 -0.0589,-4.00828 2.32933,-8.92877 5.62854,-11.5964 0.99989,-0.80848 1.02483,-0.77716 1.30172,1.63369 0.40395,3.51724 2.42083,6.9894 8.53641,14.6959 7.82472,9.86024 9.53393,13.26149 9.50018,18.9049 -0.02,3.352354 -1.50741,6.857234 -3.71745,8.759994 l -1.4816,1.2756 z"
+           id="path1105" />
+      </g>
+    </g>
+    <text x="50" y="500" font-family="Arial Black" font-size="48" fill="black">Wick Enterprises</text>
+    <text x="50" y="550" font-family="Arial" font-size="24" fill="black">Fueling The Flames for Health</text>
+  </g>
+</svg>
