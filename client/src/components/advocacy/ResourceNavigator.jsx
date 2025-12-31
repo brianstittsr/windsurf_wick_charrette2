@@ -30,6 +30,7 @@ const ResourceNavigator = ({ advocacyUser }) => {
 
   useEffect(() => {
     filterResources();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedType, searchQuery]);
 
   const loadResources = async () => {

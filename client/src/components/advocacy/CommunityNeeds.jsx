@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Map, Plus, AlertCircle, FileText, ArrowLeft, ThumbsUp } from 'lucide-react';
+import { Plus, FileText, ThumbsUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';

@@ -393,6 +393,7 @@ const gamificationService = {
         { userId: 'user4', userName: 'Taylor Brown', totalPoints: 2980, level: 5, badges: 10, avatar: '👤' },
         { userId: 'user5', userName: 'Casey Johnson', totalPoints: 2450, level: 5, badges: 9, avatar: '👥' }
       ];
+    // eslint-disable-next-line no-unreachable
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
       return [];
