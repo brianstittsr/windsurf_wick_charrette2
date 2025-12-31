@@ -1,10 +1,38 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 
-const Tabs = React.forwardRef(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("w-full", className)} {...props} />
-));
+const Tabs = React.forwardRef(({ className, value, onValueChange, defaultValue, children, ...props }, ref) => {
+  const [selectedValue, setSelectedValue] = React.useState(value || defaultValue || '');
+
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setSelectedValue(value);
+    }
+  }, [value]);
+
+  const handleValueChange = (newValue) => {
+    if (value === undefined) {
+      setSelectedValue(newValue);
+    }
+    if (onValueChange) {
+      onValueChange(newValue);
+    }
+  };
+
+  return (
+    <TabsContext.Provider value={{ value: selectedValue, onValueChange: handleValueChange }}>
+      <div ref={ref} className={cn("w-full", className)} {...props}>
+        {children}
+      </div>
+    </TabsContext.Provider>
+  );
+});
 Tabs.displayName = "Tabs";
+
+const TabsContext = React.createContext({
+  value: '',
+  onValueChange: () => {}
+});
 
 const TabsList = React.forwardRef(({ className, ...props }, ref) => (
   <div
@@ -18,31 +46,58 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
 ));
 TabsList.displayName = "TabsList";
 
-const TabsTrigger = React.forwardRef(({ className, active, ...props }, ref) => (
-  <button
-    ref={ref}
-    className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-      active
-        ? "bg-background text-foreground shadow-sm"
-        : "hover:bg-background/50",
-      className
-    )}
-    {...props}
-  />
-));
+const TabsTrigger = React.forwardRef(({ className, value: triggerValue, active, onClick, children, ...props }, ref) => {
+  const { value, onValueChange } = React.useContext(TabsContext);
+  const isActive = active !== undefined ? active : value === triggerValue;
+
+  const handleClick = (e) => {
+    if (triggerValue && onValueChange) {
+      onValueChange(triggerValue);
+    }
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
+  return (
+    <button
+      ref={ref}
+      className={cn(
+        "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+        isActive
+          ? "bg-background text-foreground shadow-sm"
+          : "hover:bg-background/50",
+        className
+      )}
+      onClick={handleClick}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+});
 TabsTrigger.displayName = "TabsTrigger";
 
-const TabsContent = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className
-    )}
-    {...props}
-  />
-));
+const TabsContent = React.forwardRef(({ className, value: contentValue, children, ...props }, ref) => {
+  const { value } = React.useContext(TabsContext);
+  
+  if (contentValue && value !== contentValue) {
+    return null;
+  }
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+});
 TabsContent.displayName = "TabsContent";
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };
