@@ -26,6 +26,26 @@ const AdvocacyModule = ({ user }) => {
     if (!user) return;
     
     try {
+      // Check if we're in demo mode
+      const isDemoMode = process.env.REACT_APP_DEMO_MODE === 'true' || user.uid === 'demo-user-id';
+      
+      if (isDemoMode) {
+        // Create a demo advocacy user profile
+        setAdvocacyUser({
+          userId: user.uid,
+          role: 'Community Organizer',
+          ageGroup: 'adult',
+          primaryConcerns: ['Housing', 'Education', 'Healthcare'],
+          currentLevel: 2,
+          completedPaths: ['intro-peer-support'],
+          affirmations: [],
+          practiceCommitments: [],
+          createdAt: new Date()
+        });
+        setLoading(false);
+        return;
+      }
+      
       const profile = await advocacyService.getAdvocacyUser(user.uid);
       
       if (!profile) {
@@ -35,6 +55,7 @@ const AdvocacyModule = ({ user }) => {
       }
     } catch (error) {
       console.error('Error loading advocacy user:', error);
+      // In case of error, show onboarding
       setShowOnboarding(true);
     } finally {
       setLoading(false);
@@ -43,6 +64,25 @@ const AdvocacyModule = ({ user }) => {
 
   const handleOnboardingComplete = async (profileData) => {
     try {
+      // Check if we're in demo mode
+      const isDemoMode = process.env.REACT_APP_DEMO_MODE === 'true' || user.uid === 'demo-user-id';
+      
+      if (isDemoMode) {
+        // Create demo profile without Firebase
+        const newProfile = {
+          userId: user.uid,
+          ...profileData,
+          currentLevel: 1,
+          completedPaths: [],
+          affirmations: [],
+          practiceCommitments: [],
+          createdAt: new Date()
+        };
+        setAdvocacyUser(newProfile);
+        setShowOnboarding(false);
+        return;
+      }
+      
       const newProfile = await advocacyService.createAdvocacyUser({
         userId: user.uid,
         ...profileData
@@ -51,6 +91,18 @@ const AdvocacyModule = ({ user }) => {
       setShowOnboarding(false);
     } catch (error) {
       console.error('Error creating advocacy profile:', error);
+      // Fallback to demo profile on error
+      const fallbackProfile = {
+        userId: user.uid,
+        ...profileData,
+        currentLevel: 1,
+        completedPaths: [],
+        affirmations: [],
+        practiceCommitments: [],
+        createdAt: new Date()
+      };
+      setAdvocacyUser(fallbackProfile);
+      setShowOnboarding(false);
     }
   };
 

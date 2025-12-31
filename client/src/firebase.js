@@ -475,4 +475,7 @@ export const COLLECTIONS = {
   ANALYSIS: 'analysis'
 };
 
+// Export db for use in other services
+export { db };
+
 export default app;
