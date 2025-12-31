@@ -3,6 +3,7 @@ import { ArrowLeft, Send } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
+import AITextEnhancer from './AITextEnhancer';
 
 const NeedReportForm = ({ onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -116,7 +117,14 @@ const NeedReportForm = ({ onSubmit, onCancel }) => {
             </div>
 
             <div>
-              <label className="block font-semibold mb-3">Describe the need or problem</label>
+              <div className="flex items-center justify-between mb-3">
+                <label className="block font-semibold">Describe the need or problem</label>
+                <AITextEnhancer
+                  text={formData.description}
+                  onEnhanced={(enhanced) => setFormData({ ...formData, description: enhanced })}
+                  context="need-description"
+                />
+              </div>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -127,7 +135,14 @@ const NeedReportForm = ({ onSubmit, onCancel }) => {
             </div>
 
             <div>
-              <label className="block font-semibold mb-3">What's the impact?</label>
+              <div className="flex items-center justify-between mb-3">
+                <label className="block font-semibold">What's the impact?</label>
+                <AITextEnhancer
+                  text={formData.impact}
+                  onEnhanced={(enhanced) => setFormData({ ...formData, impact: enhanced })}
+                  context="impact"
+                />
+              </div>
               <textarea
                 value={formData.impact}
                 onChange={(e) => setFormData({ ...formData, impact: e.target.value })}

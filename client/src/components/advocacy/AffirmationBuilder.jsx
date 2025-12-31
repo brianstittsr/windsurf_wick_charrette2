@@ -3,6 +3,7 @@ import { Sparkles, Save, Copy, CheckCircle, Plus } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
+import AITextEnhancer from './AITextEnhancer';
 import advocacyService from '../../services/advocacyService';
 
 const AffirmationBuilder = ({ advocacyUser }) => {
@@ -251,10 +252,19 @@ const AffirmationBuilder = ({ advocacyUser }) => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Create Custom Affirmation</CardTitle>
-          <CardDescription>
-            Write your own peer support response
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Create Custom Affirmation</CardTitle>
+              <CardDescription>
+                Write your own peer support response
+              </CardDescription>
+            </div>
+            <AITextEnhancer
+              text={customResponse}
+              onEnhanced={(enhanced) => setCustomResponse(enhanced)}
+              context="affirmation"
+            />
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <textarea

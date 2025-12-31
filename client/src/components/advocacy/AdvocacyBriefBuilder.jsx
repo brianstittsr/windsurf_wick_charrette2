@@ -3,6 +3,7 @@ import { FileText, ArrowLeft, Save } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
+import AITextEnhancer from './AITextEnhancer';
 import advocacyService from '../../services/advocacyService';
 
 const AdvocacyBriefBuilder = ({ need, advocacyUser, onBack }) => {
@@ -101,8 +102,17 @@ const AdvocacyBriefBuilder = ({ need, advocacyUser, onBack }) => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Issue Statement</CardTitle>
-          <CardDescription>Clear, concise description of the problem</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg">Issue Statement</CardTitle>
+              <CardDescription>Clear, concise description of the problem</CardDescription>
+            </div>
+            <AITextEnhancer
+              text={briefData.issue}
+              onEnhanced={(enhanced) => setBriefData({ ...briefData, issue: enhanced })}
+              context="issue-statement"
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <textarea
@@ -116,8 +126,17 @@ const AdvocacyBriefBuilder = ({ need, advocacyUser, onBack }) => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Impact</CardTitle>
-          <CardDescription>Who is affected and how?</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg">Impact</CardTitle>
+              <CardDescription>Who is affected and how?</CardDescription>
+            </div>
+            <AITextEnhancer
+              text={briefData.impact}
+              onEnhanced={(enhanced) => setBriefData({ ...briefData, impact: enhanced })}
+              context="impact"
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <textarea
@@ -146,8 +165,17 @@ const AdvocacyBriefBuilder = ({ need, advocacyUser, onBack }) => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Requested Change</CardTitle>
-          <CardDescription>What specific action do you want decision-makers to take?</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg">Requested Change</CardTitle>
+              <CardDescription>What specific action do you want decision-makers to take?</CardDescription>
+            </div>
+            <AITextEnhancer
+              text={briefData.requestedChange}
+              onEnhanced={(enhanced) => setBriefData({ ...briefData, requestedChange: enhanced })}
+              context="requested-change"
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <textarea
