@@ -590,68 +590,44 @@ function App() {
 
       {/* Main Content */}
       <div className="flex-1 container mx-auto px-4 py-6">
-        <Tabs className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-8 lg:w-auto" data-tour="workflow-tabs">
-            <TabsTrigger 
-              active={activeTab === 'workflow'}
-              onClick={() => setActiveTab('workflow')}
-            >
+            <TabsTrigger value="workflow">
               <Workflow className="h-4 w-4 mr-2" />
               Workflow
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'overview'}
-              onClick={() => setActiveTab('overview')}
-            >
+            <TabsTrigger value="overview">
               <FileText className="h-4 w-4 mr-2" />
               Overview
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'discussion'}
-              onClick={() => setActiveTab('discussion')}
-            >
+            <TabsTrigger value="discussion">
               <MessageSquare className="h-4 w-4 mr-2" />
               Discussion
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'rooms'}
-              onClick={() => setActiveTab('rooms')}
-            >
+            <TabsTrigger value="rooms">
               <Users className="h-4 w-4 mr-2" />
               Rooms
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'ai-analysis'}
-              onClick={() => setActiveTab('ai-analysis')}
-            >
+            <TabsTrigger value="ai-analysis">
               <Workflow className="h-4 w-4 mr-2" />
               AI Analysis
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'documents'}
-              onClick={() => setActiveTab('documents')}
-            >
+            <TabsTrigger value="documents">
               <Database className="h-4 w-4 mr-2" />
               Documents
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'progress'}
-              onClick={() => setActiveTab('progress')}
-            >
+            <TabsTrigger value="progress">
               <FileText className="h-4 w-4 mr-2" />
               Progress
             </TabsTrigger>
-            <TabsTrigger 
-              active={activeTab === 'settings'}
-              onClick={() => setActiveTab('settings')}
-            >
+            <TabsTrigger value="settings">
               <Settings className="h-4 w-4 mr-2" />
               Settings
             </TabsTrigger>
           </TabsList>
 
           {/* Workflow Tab */}
-          <TabsContent value="workflow" className={activeTab === 'workflow' ? '' : 'hidden'}>
+          <TabsContent value="workflow">
             <CharetteWorkflow
               charette={currentCharette}
               messages={messages}
@@ -685,7 +661,7 @@ function App() {
           </TabsContent>
 
           {/* Overview Tab */}
-          <TabsContent value="overview" className={activeTab === 'overview' ? '' : 'hidden'}>
+          <TabsContent value="overview">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <Card className="lg:col-span-2">
                 <CardHeader>
@@ -747,7 +723,7 @@ function App() {
           </TabsContent>
 
           {/* Discussion Tab */}
-          <TabsContent value="discussion" className={activeTab === 'discussion' ? '' : 'hidden'} data-tour="discussion-area">
+          <TabsContent value="discussion" data-tour="discussion-area">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
               {/* Room List */}
               <Card className="lg:col-span-1">
@@ -848,7 +824,7 @@ function App() {
           </TabsContent>
 
           {/* Rooms Tab */}
-          <TabsContent value="rooms" className={activeTab === 'rooms' ? '' : 'hidden'} data-tour="breakout-rooms">
+          <TabsContent value="rooms" data-tour="breakout-rooms">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentCharette.breakoutRooms?.map((room) => (
                 <Card key={room.id} className="hover:shadow-lg transition-shadow">
@@ -883,7 +859,7 @@ function App() {
           </TabsContent>
 
           {/* AI Analysis Tab */}
-          <TabsContent value="ai-analysis" className={activeTab === 'ai-analysis' ? '' : 'hidden'} data-tour="ai-analysis">
+          <TabsContent value="ai-analysis" data-tour="ai-analysis">
             <AIAnalysisPanel
               charette={currentCharette}
               messages={messages}
@@ -918,7 +894,7 @@ function App() {
           </TabsContent>
 
           {/* Progress Tab */}
-          <TabsContent value="progress" className={activeTab === 'progress' ? '' : 'hidden'} data-tour="progress">
+          <TabsContent value="progress" data-tour="progress">
             <Card>
               <CardHeader>
                 <CardTitle>Charette Progress</CardTitle>
@@ -954,7 +930,7 @@ function App() {
           </TabsContent>
 
           {/* Documents Tab */}
-          <TabsContent value="documents" className={activeTab === 'documents' ? '' : 'hidden'} data-tour="documents">
+          <TabsContent value="documents" data-tour="documents">
             <DocumentLibrary
               charetteId={currentCharette.id}
               documents={documents}
@@ -1026,7 +1002,7 @@ function App() {
           </TabsContent>
 
           {/* Settings Tab */}
-          <TabsContent value="settings" className={activeTab === 'settings' ? '' : 'hidden'} data-tour="settings">
+          <TabsContent value="settings" data-tour="settings">
             <SettingsTab
               onSave={(settings) => {
                 console.log('Settings saved:', settings);
